@@ -53,6 +53,10 @@ SYSCALL_DEFINE1(open_filesS, pid_t, pid, char **, buffer)
 
         count++;
     }
+    
+    success = copy_to_user(buffer, kbuffer, count*128*sizeof(char));
+	if (success != 0)
+		return -1;
 
     return count;
 }
